@@ -1,0 +1,56 @@
++------------+       +--------------+       +------------+
+|    USER    |       |   CATEGORY   |       |  EXPENSE   |
++------------+       +--------------+       +------------+
+| USER_ID    |       | CATEGORY_ID  |       | EXPENSE_ID |
+| ID         |       | CATEGORY_CD  |       | USER_ID    |
+| PW         |       | CATEGORY_NAME|       | CATEGORY_ID|
+| NAME       |       +--------------+       |            |
+| EMAIL      |                              | AMOUNT     |
+| JOIN_DT    |                              | DESCRIPTION|
++------------+                              | DEL_YN     |
+                                            | EXPENSE_DT |
+                                            +------------+
+
+
+-------------------------------------------------------------------------------
+------------------------------------- DDL -------------------------------------
+USE PEM;
+
+-- 회원 테이블 생성
+CREATE TABLE `USER`
+(
+	USER_ID INT(11) NOT NULL AUTO_INCREMENT
+	, ID VARCHAR(20) NOT NULL
+	, PW VARCHAR(100) NOT NULL
+	, NAME VARCHAR(20) NOT NULL
+	, EMAIL VARCHAR(50) NOT NULL
+	, JOIN_DT DATETIME DEFAULT CURRENT_TIMESTAMP
+	, PRIMARY KEY(USER_ID)
+)
+;
+
+-- 카테고리 MST 테이블 생성
+CREATE TABLE CATEGORY
+(
+	CATEGORY_ID INT(11) NOT NULL AUTO_INCREMENT
+	, CATEGORY_CD VARCHAR(2) NOT NULL -- 수입(01), 지출(02)
+	, CATEGORY_NAME VARCHAR(50) NOT NULL
+	, PRIMARY KEY(CATEGORY_ID)
+)
+;
+
+-- 수입,지출내역 테이블 생성
+CREATE TABLE EXPENSE
+(
+	EXPENSE_ID INT(11) NOT NULL AUTO_INCREMENT
+	, USER_ID INT(11) NOT NULL
+	, CATEGORY_ID INT(11) NOT NULL
+	, AMOUNT INT(50)
+	, DESCRIPTION VARCHAR(1000)
+	, DEL_YN VARCHAR(1) DEFAULT 'N'
+	, EXPENSE_DT DATETIME DEFAULT CURRENT_TIMESTAMP -- 수입 지출일시
+	, PRIMARY KEY(EXPENSE_ID)
+	, FOREIGN KEY (USER_ID) REFERENCES `USER` (USER_ID)
+    , FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORY (CATEGORY_ID)
+)
+;
