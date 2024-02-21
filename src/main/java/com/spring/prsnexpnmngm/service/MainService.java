@@ -21,4 +21,8 @@ public class MainService {
     public List<Expense> selectExpenseList(Map<String, Object> map) {
         return mainMapper.selectExpenseList(map);
     }
+
+    public List<Expense> selectExpenseViewList(Map<String, Object> map) {
+        return mainMapper.selectExpenseViewList(map);
+    }
 }

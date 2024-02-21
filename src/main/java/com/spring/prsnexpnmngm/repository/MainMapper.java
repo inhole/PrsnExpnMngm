@@ -35,4 +35,14 @@ public interface MainMapper {
         "ORDER BY EXPENSE_DT"
     )
     List<Expense> selectExpenseList(Map<String, Object> map);
+
+    @Select(
+            "SELECT A.*, B.CATEGORY_CD, B.CATEGORY_NAME " +
+                    "FROM EXPENSE A, CATEGORY B " +
+                    "WHERE B.CATEGORY_ID = A.CATEGORY_ID " +
+                    "AND A.USER_ID = ${userId} " +
+                    "AND DATE_FORMAT(A.EXPENSE_DT, '%Y-%m-%d') = '${dateStr}' " +
+                    "ORDER BY EXPENSE_DT"
+    )
+    List<Expense> selectExpenseViewList(Map<String, Object> map);
 }

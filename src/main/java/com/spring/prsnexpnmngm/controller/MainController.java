@@ -10,11 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,11 +49,10 @@ public class MainController extends CommonController {
     /** 지출 통계 폼 */
     @GetMapping("/viewMain")
     public String viewMain(Model model) {
-        model.addAttribute("startDate", "20240217");
-        model.addAttribute("endDate", "20240217");
         return "main/viewMain";
     }
 
+    /** 지출 통계 */
     @PostMapping("/axios/viewMain")
         public ResponseEntity<?> selectExpenseList(@RequestBody Map<String, Object> map, HttpSession session) throws Exception {
         map.put("userId", getUserInfo().get("userId"));
@@ -63,6 +60,18 @@ public class MainController extends CommonController {
         log.debug(map.toString());
 
         List<Expense> list = mainService.selectExpenseList(map);
+        return ResponseEntity.ok(list);
+    }
+
+    /** 지출 통계 상세 */
+    @GetMapping("/axios/viewMain/{dateStr}")
+    public ResponseEntity<?> selectExpenseViewList(@PathVariable("dateStr") String dateStr, HttpSession session) throws Exception {
+        log.info(dateStr);
+        Map<String, Object> map = new HashMap<>();
+        map.put("dateStr", dateStr);
+        map.put("userId", getUserInfo().get("userId"));
+        List<Expense> list = mainService.selectExpenseViewList(map);
+
         return ResponseEntity.ok(list);
     }
 }
