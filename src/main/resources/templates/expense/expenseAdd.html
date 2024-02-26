@@ -6,42 +6,42 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{/layout/default_layout}">
 
-<title layout:fragment="title">개인 지출 관리</title>
+<title layout:fragment="title">개인 지출 추가</title>
 
 <div layout:fragment="content">
-    <h2>개인 지출 관리</h2>
+    <h2>개인 지출 추가</h2>
 
     <!-- 메인 기능 -->
     <div>
-        <form action="#" th:action="@{/addExpense}" th:object="${expense}" method="post">
+        <form action="#" th:action="@{/expense/add}" th:object="${expense}" method="post">
             <!-- 지출 내역 추가 폼 -->
 
-            <label for="categoryCd">카테고리 분류:</label>
+            <label for="categoryCd">카테고리 분류</label>
             <select id="categoryCd" th:onchange="testAxios()" required>
                 <option value="" th:text="선택" selected></option>
                 <option th:value="|01|" th:text="수입"></option>
                 <option th:value="|02|" th:text="지출"></option>
             </select>
 
-            <label for="categoryId">카테고리:</label>
+            <label for="categoryId">카테고리</label>
             <select id="categoryId" th:field="*{categoryId}" disabled required>
             </select>
 
-            <label for="amount">금액:</label>
+            <label for="amount">금액</label>
             <input type="number" id="amount" th:field="*{amount}" required/>
 
-            <label for="description">설명:</label>
+            <label for="description">설명</label>
             <input type="text" id="description" th:field="*{description}" required/>
 
-            <button type="submit">지출 추가</button>
+            <button type="submit">추가</button>
         </form>
 
         <br>
         <!-- 카테고리 및 예산 설정 링크 -->
-        <a th:href="@{/category}">카테고리 설정</a>
+<!--        <a th:href="@{/category}">카테고리 설정</a>-->
 
         <!-- 지출 통계 조회 링크 -->
-        <a th:href="@{/viewMain}">지출 통계 조회</a>
+<!--        <a th:href="@{/viewMain}">지출 통계 조회</a>-->
     </div>
 
 </div>

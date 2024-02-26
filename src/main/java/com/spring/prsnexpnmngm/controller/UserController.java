@@ -2,9 +2,10 @@ package com.spring.prsnexpnmngm.controller;
 
 import com.spring.prsnexpnmngm.model.Message;
 import com.spring.prsnexpnmngm.model.User;
-import com.spring.prsnexpnmngm.service.UserDetailService;
 import com.spring.prsnexpnmngm.service.UserService;
 import com.spring.prsnexpnmngm.util.CommonController;
+import com.spring.prsnexpnmngm.util.MailUtil;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,17 +14,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
 public class UserController extends CommonController {
 
-    private final UserDetailService userDetailService;
     private final UserService userService;
+
+    private final MailUtil mailUtil;
 
     /** 홈 */
     @GetMapping("/")
@@ -68,5 +68,16 @@ public class UserController extends CommonController {
         return "redirect:/login";
     }
 
+    @GetMapping("/axios/send/mail/{email}")
+    @ResponseBody
+    public String checkEmail(@PathVariable("email") String email) {
+        try {
+            log.info("이메일 인증 요청 \n 이메일 : " + email);
+            return mailUtil.joinEmail(email);
+        } catch ( MessagingException e) {
+            log.error("error : ", e);
+            return "error";
+        }
+    }
 }
 

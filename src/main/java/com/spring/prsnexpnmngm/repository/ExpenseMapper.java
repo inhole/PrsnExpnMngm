@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface MainMapper {
+public interface ExpenseMapper {
 
     @Insert(
         "INSERT INTO EXPENSE (" +
@@ -31,6 +31,7 @@ public interface MainMapper {
         "FROM EXPENSE A, CATEGORY B " +
         "WHERE B.CATEGORY_ID = A.CATEGORY_ID " +
         "AND A.USER_ID = ${userId} " +
+        "AND A.DEL_YN = 'N' " +
         "AND A.EXPENSE_DT BETWEEN '${start}' AND '${end}' " +
         "ORDER BY EXPENSE_DT"
     )
@@ -38,11 +39,12 @@ public interface MainMapper {
 
     @Select(
             "SELECT A.*, B.CATEGORY_CD, B.CATEGORY_NAME " +
-                    "FROM EXPENSE A, CATEGORY B " +
-                    "WHERE B.CATEGORY_ID = A.CATEGORY_ID " +
-                    "AND A.USER_ID = ${userId} " +
-                    "AND DATE_FORMAT(A.EXPENSE_DT, '%Y-%m-%d') = '${dateStr}' " +
-                    "ORDER BY EXPENSE_DT"
+            "FROM EXPENSE A, CATEGORY B " +
+            "WHERE B.CATEGORY_ID = A.CATEGORY_ID " +
+            "AND A.USER_ID = ${userId} " +
+            "AND A.DEL_YN = 'N' " +
+            "AND DATE_FORMAT(A.EXPENSE_DT, '%Y-%m-%d') = '${dateStr}' " +
+            "ORDER BY EXPENSE_DT"
     )
-    List<Expense> selectExpenseViewList(Map<String, Object> map);
+    List<Expense> selectExpenseListView(Map<String, Object> map);
 }

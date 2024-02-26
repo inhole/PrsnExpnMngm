@@ -11,11 +11,11 @@
     <h2>카테고리 설정</h2>
 
     <!-- 카테고리 추가 폼 -->
-    <form action="#" th:action="@{/addCategory}" th:object="${category}" method="post">
-        <label for="categoryName">카테고리 이름:</label>
+    <form action="#" th:action="@{/category/add}" th:object="${category}" method="post">
+        <label for="categoryName">카테고리 이름</label>
         <input type="text" id="categoryName" th:field="*{categoryName}" required/>
 
-        <label for="categoryCd">카테고리 분류:</label>
+        <label for="categoryCd">카테고리 분류</label>
         <select id="categoryCd" th:field="*{categoryCd}" required>
             <option th:value="|01|">수입</option>
             <option th:value="|02|">지출</option>
@@ -32,7 +32,7 @@
                 <span th:text="${category.categoryName}"></span>
                 <span th:class="span01" th:if="${category.categoryCd eq '01'}">(수입)</span>
                 <span th:class="span02" th:if="${category.categoryCd eq '02'}">(지출)</span>
-                <a th:class="editBtn" th:href="@{'/delCategory/' + ${category.categoryId}}">삭제</a>
+                <a th:class="editBtn" th:href="@{'/category/del/' + ${category.categoryId}}">삭제</a>
             </li>
         </ul>
     </th:block>

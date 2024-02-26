@@ -27,14 +27,14 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login", "/join").permitAll()
+                        .requestMatchers("/", "/login", "/join", "/axios/send/mail/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .usernameParameter("id")
                         .passwordParameter("pw")
-                        .defaultSuccessUrl("/main")
+                        .defaultSuccessUrl("/expense/add")
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll);

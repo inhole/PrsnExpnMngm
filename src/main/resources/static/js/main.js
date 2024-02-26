@@ -18,7 +18,7 @@ function testAxios ()
 
     axios({
         method: "get",
-        url: "/axios/category/"+ selectValue,
+        url: "/category/axios/"+ selectValue,
     }).then(res => {
         $("#categoryId").empty().attr("disabled", false);
 

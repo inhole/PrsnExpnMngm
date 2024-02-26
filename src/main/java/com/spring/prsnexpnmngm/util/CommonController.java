@@ -16,6 +16,7 @@ public class CommonController {
         return "common/messageRedirect";
     }
 
+    /** 로그인 여부 */
     public static boolean isLogin() {
         boolean result = true;
 
@@ -27,6 +28,7 @@ public class CommonController {
         return result;
     }
 
+    /** 유저 정보 */
     public static Map<String, Object> getUserInfo() {
 
         Map<String, Object> map = new HashMap<>();

@@ -10,22 +10,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
+@RequestMapping("/category")
 public class CategoryController extends CommonController {
 
     private final CategoryService categoryService;
 
-    /** 카테고리 폼 */
-    @GetMapping("/category")
+    /** 카테고리 추가 폼 */
+    @GetMapping({"/", ""})
     public String categoryMain(Model model) {
 
         List<Category> list = categoryService.selectAllCategory();
@@ -37,7 +35,7 @@ public class CategoryController extends CommonController {
     }
 
     /** 카테고리 추가 */
-    @PostMapping("/addCategory")
+    @PostMapping("/add")
     public String addCategory(Category category, Model model) {
 
         Message message;
@@ -53,7 +51,7 @@ public class CategoryController extends CommonController {
     }
 
     /** 카테고리 삭제 */
-    @GetMapping("/delCategory/{id}")
+    @GetMapping("/del/{id}")
     public String delCategory(@PathVariable("id") Long id, Model model) {
 
         Message message;
@@ -68,7 +66,8 @@ public class CategoryController extends CommonController {
         return showMessageAndRedirect(message, model);
     }
 
-    @GetMapping("/axios/category/{categoryCd}")
+    /** 지출/수입 카테고리 조회 */
+    @GetMapping("/axios/{categoryCd}")
     public ResponseEntity<?> selectCategory(@PathVariable("categoryCd") String categoryCd, HttpSession session) throws Exception {
         List<Category> list = categoryService.selectCategory(categoryCd);
 
