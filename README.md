@@ -25,8 +25,6 @@
 
      Spring Security
 
-     Spring Boot
-
      Spring Boot Mail
 
      log4j2
