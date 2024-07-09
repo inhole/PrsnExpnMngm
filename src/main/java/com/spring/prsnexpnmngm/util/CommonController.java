@@ -10,13 +10,21 @@ import java.util.Map;
 
 public class CommonController {
 
-    // 사용자에게 메시지를 전달하고, 페이지를 리다이렉트 한다
+    /**
+     * 사용자에게 메시지를 전달하고, 페이지를 리다이렉트 한다
+     * @param params
+     * @param model
+     * @return
+     */
     public String showMessageAndRedirect(final Message params, Model model) {
         model.addAttribute("params", params);
         return "common/messageRedirect";
     }
 
-    /** 로그인 여부 */
+    /**
+     * 로그인 여부
+     * @return
+     */
     public static boolean isLogin() {
         boolean result = true;
 
@@ -28,7 +36,10 @@ public class CommonController {
         return result;
     }
 
-    /** 유저 정보 */
+    /**
+     * 유저 정보 추출
+     * @return
+     */
     public static Map<String, Object> getUserInfo() {
 
         Map<String, Object> map = new HashMap<>();

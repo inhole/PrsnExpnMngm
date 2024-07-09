@@ -25,27 +25,42 @@ public class UserController extends CommonController {
 
     private final MailUtil mailUtil;
 
-    /** 홈 */
+    /**
+     * 홈
+     * @return
+     */
     @GetMapping("/")
     public String test() {
         log.info("테스트 컨트롤러");
         return "test";
     }
 
-    /** 로그인 폼 */
+    /**
+     * 로그인 폼
+     * @param model
+     * @return
+     */
     @GetMapping("/login")
     public String loginForm(Model model) {
         model.addAttribute("user", new User());
         return "user/login";
     }
 
-    /** 회원가입 폼 */
+    /**
+     * 회원가입 폼
+     * @return
+     */
     @GetMapping("/join")
     public String joinForm() {
         return "user/join";
     }
 
-    /** 회원가입 */
+    /**
+     * 회원가입
+     * @param user
+     * @param model
+     * @return
+     */
     @PostMapping("/join")
     public String join(User user, Model model) {
         Message message;
@@ -60,7 +75,12 @@ public class UserController extends CommonController {
         return showMessageAndRedirect(message, model);
     }
 
-    /** 로그아웃 */
+    /**
+     * 로그아웃
+     * @param request
+     * @param response
+     * @return
+     */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response,
@@ -68,6 +88,11 @@ public class UserController extends CommonController {
         return "redirect:/login";
     }
 
+    /**
+     * 이메일 체크
+     * @param email
+     * @return
+     */
     @GetMapping("/axios/send/mail/{email}")
     @ResponseBody
     public String checkEmail(@PathVariable("email") String email) {

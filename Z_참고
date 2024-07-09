@@ -1,8 +1,0 @@
-- 프론트엔드 서버 실행
-git bash 에서 명령어 입력
-npm run serve // npm 서버 가동
-
-- 프론트엔드 빌드 명령어
-npm run build
-
-- 스프링부트 실행 시 vue 프로텍트 빌드 설정 주석

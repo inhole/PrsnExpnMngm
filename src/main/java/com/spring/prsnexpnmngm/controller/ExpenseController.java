@@ -24,14 +24,23 @@ public class ExpenseController extends CommonController {
 
     private final ExpenseService expenseService;
 
-    /** 개인 지출 추가 폼 */
+    /**
+     * 개인 지출 추가 폼
+     * @param model
+     * @return
+     */
     @GetMapping("/add")
     public String expense(Model model) {
         model.addAttribute("expense", new Expense());
         return "expense/expenseAdd";
     }
 
-    /** 개인 지출 추가 */
+    /**
+     * 개인 지출 추가
+     * @param expense
+     * @param model
+     * @return
+     */
     @PostMapping("/add")
     public String addExpense(Expense expense, Model model) {
         Message message;
@@ -47,13 +56,23 @@ public class ExpenseController extends CommonController {
         return showMessageAndRedirect(message, model);
     }
 
-    /** 개인 지출 캘린더 */
+    /**
+     * 개인 지출 캘린더
+     * @param model
+     * @return
+     */
     @GetMapping("/view")
     public String viewExpense(Model model) {
         return "expense/expenseView";
     }
 
-    /** 개인 지출 캘린더 조회 */
+    /**
+     * 개인 지출 캘린더 조회
+     * @param map
+     * @param session
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/axios/list")
         public ResponseEntity<?> selectExpenseList(@RequestBody Map<String, Object> map, HttpSession session) throws Exception {
         map.put("userId", getUserInfo().get("userId"));
@@ -64,7 +83,13 @@ public class ExpenseController extends CommonController {
         return ResponseEntity.ok(list);
     }
 
-    /** 지출 통계 상세 */
+    /**
+     * 지출 통계 상세
+     * @param dateStr
+     * @param session
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/axios/list/view/{dateStr}")
     public ResponseEntity<?> selectExpenseListView(@PathVariable("dateStr") String dateStr, HttpSession session) throws Exception {
         log.info(dateStr);

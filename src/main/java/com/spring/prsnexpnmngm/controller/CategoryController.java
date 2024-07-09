@@ -22,7 +22,11 @@ public class CategoryController extends CommonController {
 
     private final CategoryService categoryService;
 
-    /** 카테고리 추가 폼 */
+    /**
+     * 카테고리 추가 폼
+     * @param model
+     * @return
+     */
     @GetMapping({"/", ""})
     public String categoryMain(Model model) {
 
@@ -34,7 +38,12 @@ public class CategoryController extends CommonController {
         return "category/category";
     }
 
-    /** 카테고리 추가 */
+    /**
+     * 카테고리 추가
+     * @param category
+     * @param model
+     * @return
+     */
     @PostMapping("/add")
     public String addCategory(Category category, Model model) {
 
@@ -50,7 +59,12 @@ public class CategoryController extends CommonController {
         return showMessageAndRedirect(message, model);
     }
 
-    /** 카테고리 삭제 */
+    /**
+     * 카테고리 삭제
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/del/{id}")
     public String delCategory(@PathVariable("id") Long id, Model model) {
 
@@ -66,7 +80,13 @@ public class CategoryController extends CommonController {
         return showMessageAndRedirect(message, model);
     }
 
-    /** 지출/수입 카테고리 조회 */
+    /**
+     * 지출/수입 카테고리 조회
+     * @param categoryCd
+     * @param session
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/axios/{categoryCd}")
     public ResponseEntity<?> selectCategory(@PathVariable("categoryCd") String categoryCd, HttpSession session) throws Exception {
         List<Category> list = categoryService.selectCategory(categoryCd);

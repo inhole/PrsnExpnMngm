@@ -16,7 +16,12 @@ import java.util.Random;
 public class MailUtil {
     private final JavaMailSender mailSender;
 
-    /** 이메일 인증 */
+    /**
+     * 이메일 인증
+     * @param email
+     * @return
+     * @throws MessagingException
+     */
     public String joinEmail(String email) throws MessagingException {
         String setFrom = "이인호";
         String toMail = email; // 보낼 사람
@@ -30,7 +35,10 @@ public class MailUtil {
         return Integer.toString(authNumber);
     }
 
-    /** 난수번호 생성 */
+    /**
+     * 난수번호 생성
+     * @return
+     */
     private int makeRandomNumber() {
         Random r = new Random();
         int checkNum = r.nextInt(888888) + 111111;  // 111111 ~ 99999 사이의 난수 발생
@@ -38,7 +46,14 @@ public class MailUtil {
         return checkNum;
     }
 
-    /** 메일 송신 */
+    /**
+     * 메일 송신
+     * @param setFrom
+     * @param toMail
+     * @param title
+     * @param content
+     * @throws MessagingException
+     */
     private void sendMail(String setFrom, String toMail, String title, String content)  throws MessagingException{
         MimeMessage message = mailSender.createMimeMessage();   // 스프링에서 제공하는 메일 API
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
